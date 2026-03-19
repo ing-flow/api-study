@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+
+# env
+.env
+.env.*
+
+# venv
+myenv/
+venv/
+
+.pytest_cache/
+.coverage
+htmlcov/
+db_data/
+
+# DB
+*.db
+
+# logs
+logs/
+
+# OS
+.DS_Store
