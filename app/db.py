@@ -6,7 +6,7 @@ DATABASE_URL = settings.database_url
 
 if settings.database_url.startswith("sqlite"):
     engine = create_engine(
-        sDATABASE_URL,
+        DATABASE_URL,
         connect_args={"check_same_thread": False}
     )
 else:
