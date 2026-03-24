@@ -1,5 +1,5 @@
-import os
-os.environ["DATABASE_URL"] = "sqlite://"
+#import os
+#os.environ["DATABASE_URL"] = "sqlite://"
 
 import pytest
 from fastapi.testclient import TestClient
@@ -35,6 +35,7 @@ TestingSessionLocal = sessionmaker(
 @pytest.fixture(scope="session")
 def test_db():
     
+    print("ENGINE:", engine.url)
     Base.metadata.create_all(bind=engine)
 
     yield
@@ -49,6 +50,8 @@ def db_session(test_db):
     transaction = connection.begin()
 
     session = TestingSessionLocal(bind=connection)
+
+    print("TEST DB:", engine.url)
 
     yield session
 
