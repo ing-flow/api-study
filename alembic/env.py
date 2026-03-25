@@ -7,7 +7,7 @@ from alembic import context
 
 from app.db import Base
 from app.models import todo_model # noqa: F401
-from app.settings import DATABASE_URL   # ★追加
+from app.core.settings import DATABASE_URL   # ★追加
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
