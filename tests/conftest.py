@@ -8,7 +8,7 @@ from sqlalchemy.orm import sessionmaker
 
 from app.main import app
 from app.db import Base, get_db
-from app.models import todo_model
+from app.models import todo_model #noqa: F401
 from sqlalchemy.pool import StaticPool
 
 TEST_DATABASE_URL = "sqlite://"

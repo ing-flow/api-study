@@ -14,7 +14,7 @@ def test_create_todo(client):
     data = response.json()
 
     assert data["text"] == "pytest todo"
-    assert data["completed"] == False
+    assert not data["completed"] 
     assert "id" in data
 
 def test_get_todos_empty(client):

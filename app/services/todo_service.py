@@ -1,4 +1,3 @@
-from sqlalchemy.orm import Session
 from app.repositories.todo_repository import TodoRepository
 from app.core.logger import get_app_logger
 
