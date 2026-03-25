@@ -7,7 +7,7 @@ from alembic import context
 
 from app.db import Base
 from app.models import todo_model # noqa: F401
-from app.core.settings import DATABASE_URL   # ★追加
+from app.core.settings import settings   # ★追加
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -44,7 +44,7 @@ def run_migrations_offline() -> None:
     """
     #url = config.get_main_option("sqlalchemy.url")
     context.configure(
-        url=DATABASE_URL,   # ★変更
+        url=settings.database_url,   # ★変更
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
@@ -62,7 +62,7 @@ def run_migrations_online() -> None:
 
     """
     connectable = create_engine(   # ★変更
-        DATABASE_URL,
+        settings.database_url,
         poolclass=pool.NullPool,
     )
 
