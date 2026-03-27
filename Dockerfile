@@ -18,4 +18,8 @@ EXPOSE 8000
 
 # 起動
 # CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
-CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "app.main:app", "-b", "0.0.0.0:8000"]
+# CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "app.main:app", "-b", "0.0.0.0:8000"]
+COPY docker/start.sh /start.sh
+RUN chmod +x /start.sh
+
+CMD ["/start.sh"]
