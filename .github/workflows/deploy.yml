@@ -29,4 +29,9 @@ jobs:
             docker pull shiitake831dev/api-study
             docker stop api || true
             docker rm api || true
-            docker run -d -p 8000:8000 --name api shiitake831dev/api-study
+            docker run -d \
+            -p 8000:8000 \
+            --name api \
+            -e DATABASE_URL=sqlite:///./test.db \
+            shiitake831dev/api-study
+            
