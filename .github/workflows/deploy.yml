@@ -32,6 +32,6 @@ jobs:
             docker run -d \
             -p 8000:8000 \
             --name api \
-            -e DATABASE_URL=sqlite:///./test.db \
+            --link postgres \
+            -e DATABASE_URL=postgresql://appuser:apppass@postgres:5432/appdb \
             shiitake831dev/api-study
-            
