@@ -9,6 +9,10 @@ logger = get_app_logger(__name__)
 
 router = APIRouter()
 
+@router.get("/")
+def root():
+    return {"status": "ok"}
+
 @router.get("/health")
 def health_check():
     return {"status": "ok"}
