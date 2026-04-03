@@ -9,6 +9,10 @@ logger = get_app_logger(__name__)
 
 router = APIRouter()
 
+@router.get("/health")
+def health_check():
+    return {"status": "ok"}
+
 @router.get("/todos", response_model=List[TodoResponse])
 def list_todos(service: TodoService = Depends(get_todo_service)):
 
