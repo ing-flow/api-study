@@ -27,11 +27,11 @@ jobs:
 
 
           script: |
-            cd /home/ubuntu/api-study
+            cd /home/ubuntu/deploy
 
-            docker compose down
             docker compose pull
-            docker compose up -d --build
+            docker compose down
+            docker compose up -d
           #script: |
           #  docker pull shiitake831dev/api-study
           #  docker stop api || true

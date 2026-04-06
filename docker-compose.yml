@@ -1,7 +1,6 @@
 services:
   db:
     image: postgres:15
-    container_name: postgres
     restart: always
     environment:
       POSTGRES_USER: user
@@ -16,8 +15,7 @@ services:
       retries: 5
 
   app:
-    build: .
-    container_name: fastapi_app
+    image: shiitake831dev/api-study:latest
     restart: always
     depends_on:
       db:
@@ -34,7 +32,6 @@ services:
 
   nginx:
     image: nginx:latest
-    container_name: nginx
     restart: always
     ports:
       - "80:80"
