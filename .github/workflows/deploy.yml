@@ -25,13 +25,20 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
 
+
           script: |
-            docker pull shiitake831dev/api-study
-            docker stop api || true
-            docker rm api || true
-            docker run -d \
-            -p 8000:8000 \
-            --name api \
-            --link postgres \
-            -e DATABASE_URL=postgresql://appuser:apppass@postgres:5432/appdb \
-            shiitake831dev/api-study
+            cd /home/ubuntu/api-study
+
+            docker compose down
+            docker compose pull
+            docker compose up -d --build
+          #script: |
+          #  docker pull shiitake831dev/api-study
+          #  docker stop api || true
+          #  docker rm api || true
+          #  docker run -d \
+          #  -p 8000:8000 \
+          #  --name api \
+          #  --link postgres \
+          #  -e DATABASE_URL=postgresql://appuser:apppass@postgres:5432/appdb \
+          #  shiitake831dev/api-study
