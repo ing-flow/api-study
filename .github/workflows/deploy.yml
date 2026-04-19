@@ -45,12 +45,37 @@ jobs:
           host: ${{ secrets.EC2_HOST }}      # EC2のIP
           username: ubuntu                  # 通常はubuntu
           key: ${{ secrets.EC2_SSH_KEY }}   # 秘密鍵
-          script: |
-            cd /home/ubuntu/deploy
+        #  script: |
+        #    cd /home/ubuntu/deploy
 
             # 最新タグへ更新
-            sed -i "s/^IMAGE_TAG=.*/IMAGE_TAG=${{ steps.vars.outputs.TAG }}/" .env
+        #    sed -i "s/^IMAGE_TAG=.*/IMAGE_TAG=${{ steps.vars.outputs.TAG }}/" .env
 
             # 最新イメージ取得＆再起動
-            docker compose pull
-            docker compose up -d
+        #    docker compose pull
+        #    docker compose up -d
+
+          script: |
+            /home/ubuntu/deploy/deploy.sh v${{ github.run_number }}
+
+      - name: Wait for startup
+        run: sleep 15
+
+      - name: Health Check
+        run: |
+          for i in {1..5}; do
+            curl -f https://shiitake-works.fun/health && exit 0
+            echo "Retry..."
+            sleep 5
+          done
+          exit 1
+
+      - name: Rollback if failed
+        if: failure()
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            /home/ubuntu/deploy/rollback.sh
