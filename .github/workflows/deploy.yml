@@ -58,9 +58,15 @@ jobs:
           script: |
             /home/ubuntu/deploy/deploy.sh v${{ github.run_number }}
 
+      # =========================
+      # Wait（起動待ち）
+      # =========================
       - name: Wait for startup
         run: sleep 15
 
+      # =========================
+      # Health Check（ここが肝）
+      # =========================
       - name: Health Check
         run: |
           for i in {1..5}; do
@@ -70,6 +76,9 @@ jobs:
           done
           exit 1
 
+      # =========================
+      # Rollback（失敗時のみ）
+      # =========================
       - name: Rollback if failed
         if: failure()
         uses: appleboy/ssh-action@v1
